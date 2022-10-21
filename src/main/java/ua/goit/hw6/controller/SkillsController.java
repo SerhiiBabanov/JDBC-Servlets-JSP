@@ -1,7 +1,11 @@
 package ua.goit.hw6.controller;
 
-import ua.goit.hw6.model.SkillLevel;
+import ua.goit.hw6.config.DatabaseManagerConnector;
+import ua.goit.hw6.config.PropertiesConfig;
 import ua.goit.hw6.model.dto.SkillDto;
+import ua.goit.hw6.repository.SkillRepository;
+import ua.goit.hw6.service.SkillService;
+import ua.goit.hw6.service.conventer.SkillConverter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,17 +15,36 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 @WebServlet("/skills")
 public class SkillsController extends HttpServlet {
+
+    private SkillService skillService;
+
+    @Override
+    public void init() {
+        String dbPassword = System.getenv("dbPassword");
+        String dbUsername = System.getenv("dbUsername");
+        PropertiesConfig propertiesConfig = new PropertiesConfig();
+        Properties properties = propertiesConfig.loadProperties("application.properties");
+        DatabaseManagerConnector manager = new DatabaseManagerConnector(properties, dbUsername, dbPassword);
+        SkillRepository skillRepository = new SkillRepository(manager);
+        SkillConverter skillConverter = new SkillConverter();
+        skillService = new SkillService(skillRepository, skillConverter);
+
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        SkillDto skillDto = new SkillDto();
-        skillDto.setId(5L);
-        skillDto.setLanguage("Java");
-        skillDto.setLevel(SkillLevel.Middle);
-        List<SkillDto> skills = new ArrayList<>();
-        skills.add(skillDto);
+        if (req.getParameterMap().containsKey("id")) {
+            List<SkillDto> skills = new ArrayList<>();
+            skills.add(skillService.getById(Long.valueOf(req.getParameter("id"))).orElseGet(SkillDto::new));
+            req.setAttribute("skills", skills);
+            req.getRequestDispatcher("/WEB-INF/jsp/developers.jsp").forward(req, resp);
+        }
+
+        List<SkillDto> skills = skillService.getAll();
         req.setAttribute("skills", skills);
         req.getRequestDispatcher("/WEB-INF/jsp/skills.jsp").forward(req, resp);
     }

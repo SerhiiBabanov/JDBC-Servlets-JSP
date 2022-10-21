@@ -18,9 +18,12 @@ public class ProjectRepository implements Repository<ProjectDao> {
     private static final String SELECT_ALL = "select id, name, git_url, cost, date from projects";
     private static final String SELECT_ALL_WITH_IDS = "select id, name, git_url, cost, date from projects " +
             "where id in (%s)";
-    private static final String SELECT_ALL_WITH_DEVELOPER_ID = "select id, project_id, developer_id " +
-            "from project_developer_relation" +
-            " where developer_id = ?";
+    private static final String SELECT_ALL_WITH_DEVELOPER_ID = "select p.id, p.name, p.git_url, p.cost, p.date " +
+            "from projects p " +
+            "inner join project_developer_relation pdr on p.id = pdr.project_id " +
+            "inner join developers d on pdr.developer_id = d.id " +
+            "where d.id = ?";
+
     private final DatabaseManagerConnector manager;
 
     public ProjectRepository(DatabaseManagerConnector manager) {

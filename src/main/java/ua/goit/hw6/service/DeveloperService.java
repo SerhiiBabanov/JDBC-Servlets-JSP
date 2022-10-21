@@ -36,7 +36,8 @@ public class DeveloperService {
         Optional<DeveloperDao> developerDao = developerRepository.findById(id);
         return developerDao.map(developerConverter::from);
     }
-    public List<DeveloperDto> getAll(){
+
+    public List<DeveloperDto> getAll() {
         return developerRepository.findAll().stream()
                 .map(developerConverter::from)
                 .collect(Collectors.toList());
@@ -50,29 +51,34 @@ public class DeveloperService {
     public void delete(DeveloperDto developerDto) {
         developerRepository.delete(developerConverter.to(developerDto));
     }
-    public List<DeveloperDto> getByProjectId(Long id){
+
+    public List<DeveloperDto> getByProjectId(Long id) {
         return developerRepository.getByProjectId(id).stream()
                 .map(developerConverter::from)
                 .collect(Collectors.toList());
     }
-    public List<DeveloperDto> getBySkillId(Long id){
+
+    public List<DeveloperDto> getBySkillId(Long id) {
         return developerRepository.getBySkillId(id).stream()
                 .map(developerConverter::from)
                 .collect(Collectors.toList());
     }
-    public long addSkill(Long developerId, Long skillId){
+
+    public long addSkill(Long developerId, Long skillId) {
         DeveloperSkillRelationDao dao = new DeveloperSkillRelationDao();
         dao.setDeveloperId(developerId);
         dao.setSkillId(skillId);
         return developerSkillRelationRepository.save(dao).getId();
     }
-    public void deleteSkill(Long developerId, Long skillId){
+
+    public void deleteSkill(Long developerId, Long skillId) {
         DeveloperSkillRelationDao dao = new DeveloperSkillRelationDao();
         dao.setDeveloperId(developerId);
         dao.setSkillId(skillId);
         developerSkillRelationRepository.delete(dao);
     }
-    public List<DeveloperDto> getBySkillLevel(SkillLevel skillLevel){
+
+    public List<DeveloperDto> getBySkillLevel(SkillLevel skillLevel) {
         List<Long> skillIds = skillRepository.findByLevel(skillLevel).stream()
                 .map(SkillDao::getId)
                 .collect(Collectors.toList());
@@ -80,7 +86,8 @@ public class DeveloperService {
                 .map(developerConverter::from)
                 .collect(Collectors.toList());
     }
-    public List<DeveloperDto> getBySkillLanguage(String language){
+
+    public List<DeveloperDto> getBySkillLanguage(String language) {
         List<Long> skillIds = skillRepository.findByLanguage(language).stream()
                 .map(SkillDao::getId)
                 .collect(Collectors.toList());

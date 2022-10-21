@@ -16,7 +16,8 @@
             <th scope="row">${customer.id}</th>
             <td>${customer.name}</td>
             <td>${customer.email}</td>
-            <td><a class="btn btn-primary" href="${pageContext.request.contextPath}/customers?id=${customer.id}">Edit</a>
+            <td><a class="btn btn-primary"
+                   href="${pageContext.request.contextPath}/customers?id=${customer.id}">Edit</a>
             </td>
             <td>
                 <button class="btn btn-primary"

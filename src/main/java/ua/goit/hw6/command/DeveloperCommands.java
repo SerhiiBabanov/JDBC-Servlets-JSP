@@ -16,6 +16,7 @@ public class DeveloperCommands implements Command {
         this.view = view;
         this.developerService = developerService;
     }
+
     @Override
     public boolean canExecute(String input) {
         return input.split(" ")[0].equals(DEVELOPER_COMMANDS);
@@ -41,6 +42,7 @@ public class DeveloperCommands implements Command {
         }
 
     }
+
     private void create(String[] args) {
         DeveloperDto developerDto = new DeveloperDto();
         developerDto.setName(args[2]);
@@ -51,7 +53,7 @@ public class DeveloperCommands implements Command {
     }
 
     private void get(String[] args) {
-        if (args.length==3) {
+        if (args.length == 3) {
             developerService.getById(Long.valueOf(args[2]))
                     .ifPresentOrElse((value) -> view.write(String.valueOf(value)),
                             () -> view.write("Don`t find developer"));
@@ -76,35 +78,40 @@ public class DeveloperCommands implements Command {
         developerService.delete(developerDto);
         view.write("Developer deleted");
     }
-    private void addSkillToDeveloper(String[] args){
+
+    private void addSkillToDeveloper(String[] args) {
         Long developerId = Long.valueOf(args[2]);
         Long skillId = Long.valueOf(args[3]);
         developerService.addSkill(developerId, skillId);
         view.write("Skill to developer added");
     }
-    private void deleteSkillFromDeveloper(String[] args){
+
+    private void deleteSkillFromDeveloper(String[] args) {
         Long developerId = Long.valueOf(args[2]);
         Long skillId = Long.valueOf(args[3]);
         developerService.deleteSkill(developerId, skillId);
         view.write("Skill from developer deleted");
     }
-    private void getAllDevelopersByProject(String[] args){
+
+    private void getAllDevelopersByProject(String[] args) {
         List<DeveloperDto> developerDtoList = developerService.getByProjectId(Long.valueOf(args[2]));
-        for (DeveloperDto dto: developerDtoList
-             ) {
-            System.out.println(dto);
-        }
-    }
-    private void getAllDevelopersBySkillLanguage(String[] args){
-        List<DeveloperDto> developerDtoList = developerService.getBySkillLanguage(args[2]);
-        for (DeveloperDto dto: developerDtoList
+        for (DeveloperDto dto : developerDtoList
         ) {
             System.out.println(dto);
         }
     }
-    private void getAllDeveloperBySkillLevel(String[] args){
+
+    private void getAllDevelopersBySkillLanguage(String[] args) {
+        List<DeveloperDto> developerDtoList = developerService.getBySkillLanguage(args[2]);
+        for (DeveloperDto dto : developerDtoList
+        ) {
+            System.out.println(dto);
+        }
+    }
+
+    private void getAllDeveloperBySkillLevel(String[] args) {
         List<DeveloperDto> developerDtoList = developerService.getBySkillLevel(SkillLevel.valueOf(args[2]));
-        for (DeveloperDto dto: developerDtoList
+        for (DeveloperDto dto : developerDtoList
         ) {
             System.out.println(dto);
         }

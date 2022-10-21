@@ -36,7 +36,8 @@ public class CustomerService {
     public void delete(CustomerDto customerDto) {
         customerRepository.delete(customersConverter.to(customerDto));
     }
-    public List<CustomerDto> getAll(){
+
+    public List<CustomerDto> getAll() {
         return customerRepository.findAll().stream()
                 .map(customersConverter::from)
                 .collect(Collectors.toList());

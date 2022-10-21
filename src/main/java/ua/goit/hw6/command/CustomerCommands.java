@@ -45,7 +45,7 @@ public class CustomerCommands implements Command {
     }
 
     private void get(String[] args) {
-        if (args.length==3) {
+        if (args.length == 3) {
             customerService.getById(Long.valueOf(args[2]))
                     .ifPresentOrElse((value) -> view.write(String.valueOf(value)),
                             () -> view.write("Don`t find customer"));

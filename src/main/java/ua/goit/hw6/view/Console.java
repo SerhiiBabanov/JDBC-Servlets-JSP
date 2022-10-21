@@ -2,7 +2,7 @@ package ua.goit.hw6.view;
 
 import java.util.Scanner;
 
-public class Console implements View{
+public class Console implements View {
     private final Scanner scanner;
 
     public Console(Scanner scanner) {

@@ -23,6 +23,12 @@ public class CustomerRepository implements Repository<CustomerDao> {
         this.manager = manager;
     }
 
+    private static void getEntity(ResultSet resultSet, CustomerDao customerDao) throws SQLException {
+        customerDao.setId(resultSet.getLong("id"));
+        customerDao.setName(resultSet.getString("name"));
+        customerDao.setEmail(resultSet.getString("email"));
+    }
+
     @Override
     public CustomerDao save(CustomerDao entity) {
         try (Connection connection = manager.getConnection();
@@ -113,6 +119,7 @@ public class CustomerRepository implements Repository<CustomerDao> {
         }
         return customerDaoList;
     }
+
     @Override
     public List<CustomerDao> findByListOfID(List<Long> idList) {
         List<CustomerDao> customerDaoList = new ArrayList<>();
@@ -123,8 +130,9 @@ public class CustomerRepository implements Repository<CustomerDao> {
         try (Connection connection = manager.getConnection();
              PreparedStatement statement = connection.prepareStatement(stmt)) {
             int index = 1;
-            for( Long id : idList ) {
-                statement.setLong(  index++, id );}
+            for (Long id : idList) {
+                statement.setLong(index++, id);
+            }
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     CustomerDao customerDao = new CustomerDao();
@@ -137,11 +145,5 @@ public class CustomerRepository implements Repository<CustomerDao> {
             throw new RuntimeException("Select customers failed");
         }
         return customerDaoList;
-    }
-
-    private static void getEntity(ResultSet resultSet, CustomerDao customerDao) throws SQLException {
-        customerDao.setId(resultSet.getLong("id"));
-        customerDao.setName(resultSet.getString("name"));
-        customerDao.setEmail(resultSet.getString("email"));
     }
 }

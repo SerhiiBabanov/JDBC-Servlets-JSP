@@ -30,6 +30,12 @@ public class DeveloperSkillRelationRepository implements Repository<DeveloperSki
         this.manager = manager;
     }
 
+    private static void getEntity(ResultSet resultSet, DeveloperSkillRelationDao dsRelationDao) throws SQLException {
+        dsRelationDao.setId(resultSet.getLong("id"));
+        dsRelationDao.setDeveloperId(resultSet.getLong("project_id"));
+        dsRelationDao.setSkillId(resultSet.getLong("skill_id"));
+    }
+
     @Override
     public DeveloperSkillRelationDao save(DeveloperSkillRelationDao entity) {
         try (Connection connection = manager.getConnection();
@@ -131,8 +137,9 @@ public class DeveloperSkillRelationRepository implements Repository<DeveloperSki
         try (Connection connection = manager.getConnection();
              PreparedStatement statement = connection.prepareStatement(stmt)) {
             int index = 1;
-            for( Long id : idList ) {
-                statement.setLong(  index++, id );}
+            for (Long id : idList) {
+                statement.setLong(index++, id);
+            }
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     DeveloperSkillRelationDao dsRelationDao = new DeveloperSkillRelationDao();
@@ -145,12 +152,6 @@ public class DeveloperSkillRelationRepository implements Repository<DeveloperSki
             throw new RuntimeException("Select relations between developers and skills failed");
         }
         return dsRelationDaoList;
-    }
-
-    private static void getEntity(ResultSet resultSet, DeveloperSkillRelationDao dsRelationDao) throws SQLException {
-        dsRelationDao.setId(resultSet.getLong("id"));
-        dsRelationDao.setDeveloperId(resultSet.getLong("project_id"));
-        dsRelationDao.setSkillId(resultSet.getLong("skill_id"));
     }
 
 }

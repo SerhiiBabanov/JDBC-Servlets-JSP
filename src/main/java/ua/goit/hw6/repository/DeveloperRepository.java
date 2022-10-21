@@ -21,21 +21,28 @@ public class DeveloperRepository implements Repository<DeveloperDao> {
     private static final String SELECT_ALL_WITH_SKILL_ID = "select id, developer_id, skill_id " +
             "from developer_skill_relation" +
             " where skill_id = ?";
-    private static final String SELECT_ALL_WITH_SKILL_ID_LIST = "select distinct d.id, d.name, d.username, d.salary "+
-    "from developers d " +
-    "inner join developer_skill_relation dsr on d.id = dsr.developer_id " +
-    "inner join skills s on dsr.skill_id = s.id " +
-    "where s.id in (%s)";
+    private static final String SELECT_ALL_WITH_SKILL_ID_LIST = "select distinct d.id, d.name, d.username, d.salary " +
+            "from developers d " +
+            "inner join developer_skill_relation dsr on d.id = dsr.developer_id " +
+            "inner join skills s on dsr.skill_id = s.id " +
+            "where s.id in (%s)";
 
     private static final String SELECT_ALL_WITH_PROJECT_ID = "select d.id, d.name, d.username, d.salary " +
-    "from developers d " +
-    "inner join project_developer_relation pdr on d.id = pdr.developer_id "+
-    "inner join projects p on pdr.project_id = p.id " +
-    "where p.id = ?";
+            "from developers d " +
+            "inner join project_developer_relation pdr on d.id = pdr.developer_id " +
+            "inner join projects p on pdr.project_id = p.id " +
+            "where p.id = ?";
     private final DatabaseManagerConnector manager;
 
     public DeveloperRepository(DatabaseManagerConnector manager) {
         this.manager = manager;
+    }
+
+    protected static void getEntity(ResultSet resultSet, DeveloperDao developerDao) throws SQLException {
+        developerDao.setId(resultSet.getLong("id"));
+        developerDao.setName(resultSet.getString("name"));
+        developerDao.setUsername(resultSet.getString("username"));
+        developerDao.setSalary(resultSet.getInt("salary"));
     }
 
     @Override
@@ -142,8 +149,9 @@ public class DeveloperRepository implements Repository<DeveloperDao> {
         try (Connection connection = manager.getConnection();
              PreparedStatement statement = connection.prepareStatement(stmt)) {
             int index = 1;
-            for( Long id : idList ) {
-                statement.setLong(  index++, id );}
+            for (Long id : idList) {
+                statement.setLong(index++, id);
+            }
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     DeveloperDao developerDao = new DeveloperDao();
@@ -157,7 +165,8 @@ public class DeveloperRepository implements Repository<DeveloperDao> {
         }
         return developerDaoList;
     }
-    public List<DeveloperDao> getBySkillId(Long skillId){
+
+    public List<DeveloperDao> getBySkillId(Long skillId) {
         List<DeveloperDao> developerDaoList = new ArrayList<>();
         try (Connection connection = manager.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_ALL_WITH_SKILL_ID)) {
@@ -175,7 +184,8 @@ public class DeveloperRepository implements Repository<DeveloperDao> {
         }
         return developerDaoList;
     }
-    public List<DeveloperDao> getBySkillIdList(List<Long> skillIdList){
+
+    public List<DeveloperDao> getBySkillIdList(List<Long> skillIdList) {
         List<DeveloperDao> developerDaoList = new ArrayList<>();
         String stmt = String.format(SELECT_ALL_WITH_SKILL_ID_LIST,
                 skillIdList.stream()
@@ -184,8 +194,9 @@ public class DeveloperRepository implements Repository<DeveloperDao> {
         try (Connection connection = manager.getConnection();
              PreparedStatement statement = connection.prepareStatement(stmt)) {
             int index = 1;
-            for( Long id : skillIdList ) {
-                statement.setLong(  index++, id );}
+            for (Long id : skillIdList) {
+                statement.setLong(index++, id);
+            }
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     DeveloperDao developerDao = new DeveloperDao();
@@ -199,7 +210,8 @@ public class DeveloperRepository implements Repository<DeveloperDao> {
         }
         return developerDaoList;
     }
-    public List<DeveloperDao> getByProjectId(Long projectId){
+
+    public List<DeveloperDao> getByProjectId(Long projectId) {
         List<DeveloperDao> developerDaoList = new ArrayList<>();
         try (Connection connection = manager.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_ALL_WITH_PROJECT_ID)) {
@@ -216,13 +228,6 @@ public class DeveloperRepository implements Repository<DeveloperDao> {
             throw new RuntimeException("Select developers with project failed");
         }
         return developerDaoList;
-    }
-
-    protected static void getEntity(ResultSet resultSet, DeveloperDao developerDao) throws SQLException {
-        developerDao.setId(resultSet.getLong("id"));
-        developerDao.setName(resultSet.getString("name"));
-        developerDao.setUsername(resultSet.getString("username"));
-        developerDao.setSalary(resultSet.getInt("salary"));
     }
 
 }

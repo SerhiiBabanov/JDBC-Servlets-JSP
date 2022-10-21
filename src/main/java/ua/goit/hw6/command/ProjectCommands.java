@@ -19,6 +19,7 @@ public class ProjectCommands implements Command {
         this.projectService = projectService;
         this.developerService = developerService;
     }
+
     @Override
     public boolean canExecute(String input) {
         return input.split(" ")[0].equals(PROJECT_COMMANDS);
@@ -42,6 +43,7 @@ public class ProjectCommands implements Command {
         }
 
     }
+
     private void create(String[] args) {
         ProjectDto projectDto = new ProjectDto();
         projectDto.setName(args[2]);
@@ -53,7 +55,7 @@ public class ProjectCommands implements Command {
     }
 
     private void get(String[] args) {
-        if (args.length==3) {
+        if (args.length == 3) {
             projectService.getById(Long.valueOf(args[2]))
                     .ifPresentOrElse((value) -> view.write(String.valueOf(value)),
                             () -> view.write("Don`t find project"));
@@ -79,22 +81,25 @@ public class ProjectCommands implements Command {
         projectService.delete(projectDto);
         view.write("Project deleted");
     }
-    private void addDeveloperToProject(String[] args){
+
+    private void addDeveloperToProject(String[] args) {
         Long projectId = Long.valueOf(args[2]);
         Long developerId = Long.valueOf(args[3]);
         projectService.addDeveloperToProject(projectId, developerId);
         view.write("Developer to project added");
     }
-    private void deleteDeveloperFromProject(String[] args){
+
+    private void deleteDeveloperFromProject(String[] args) {
         Long projectId = Long.valueOf(args[2]);
         Long developerId = Long.valueOf(args[3]);
         projectService.addDeveloperToProject(projectId, developerId);
         view.write("Developer to project added");
     }
-    private void getAllWithCountOfDeveloper(){
+
+    private void getAllWithCountOfDeveloper() {
         List<ProjectDto> projectDtoList = projectService.getAll();
-        for (ProjectDto dto: projectDtoList
-             ) {
+        for (ProjectDto dto : projectDtoList
+        ) {
             int count = developerService.getByProjectId(dto.getId()).size();
             view.write(dto + ", developerCount=" + count);
         }

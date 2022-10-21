@@ -14,12 +14,15 @@ public class ProjectManagementSystem {
         this.view = view;
         this.commands = commands;
     }
+
     public void run() {
         view.write("Hello, please enter help to see all command");
         try {
             execute();
-        } catch (ExitException e) {}
+        } catch (ExitException e) {
+        }
     }
+
     private void execute() {
         while (true) {
             String input = view.read();

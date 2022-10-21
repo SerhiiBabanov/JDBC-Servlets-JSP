@@ -27,6 +27,14 @@ public class ProjectRepository implements Repository<ProjectDao> {
         this.manager = manager;
     }
 
+    private static void getEntity(ResultSet resultSet, ProjectDao projectDao) throws SQLException {
+        projectDao.setId(resultSet.getLong("id"));
+        projectDao.setName(resultSet.getString("name"));
+        projectDao.setGit_url(resultSet.getString("git_url"));
+        projectDao.setCost(resultSet.getInt("cost"));
+        projectDao.setDate(resultSet.getLong("date"));
+    }
+
     @Override
     public ProjectDao save(ProjectDao entity) {
         try (Connection connection = manager.getConnection();
@@ -133,8 +141,9 @@ public class ProjectRepository implements Repository<ProjectDao> {
         try (Connection connection = manager.getConnection();
              PreparedStatement statement = connection.prepareStatement(stmt)) {
             int index = 1;
-            for( Long id : idList ) {
-                statement.setLong(  index++, id );}
+            for (Long id : idList) {
+                statement.setLong(index++, id);
+            }
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     ProjectDao projectDao = new ProjectDao();
@@ -148,7 +157,8 @@ public class ProjectRepository implements Repository<ProjectDao> {
         }
         return projectDaoList;
     }
-    public List<ProjectDao> getByDeveloperId(Long developerId){
+
+    public List<ProjectDao> getByDeveloperId(Long developerId) {
         List<ProjectDao> projectDaoList = new ArrayList<>();
         try (Connection connection = manager.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_ALL_WITH_DEVELOPER_ID)) {
@@ -165,12 +175,5 @@ public class ProjectRepository implements Repository<ProjectDao> {
             throw new RuntimeException("Select projects with developer failed");
         }
         return projectDaoList;
-    }
-    private static void getEntity(ResultSet resultSet, ProjectDao projectDao) throws SQLException {
-        projectDao.setId(resultSet.getLong("id"));
-        projectDao.setName(resultSet.getString("name"));
-        projectDao.setGit_url(resultSet.getString("git_url"));
-        projectDao.setCost(resultSet.getInt("cost"));
-        projectDao.setDate(resultSet.getLong("date"));
     }
 }

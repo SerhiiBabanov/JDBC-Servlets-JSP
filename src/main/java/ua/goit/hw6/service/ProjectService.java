@@ -42,25 +42,29 @@ public class ProjectService {
     public void delete(ProjectDto projectDto) {
         projectRepository.delete(projectConverter.to(projectDto));
     }
-    public List<ProjectDto> getAll(){
+
+    public List<ProjectDto> getAll() {
         return projectRepository.findAll().stream()
                 .map(projectConverter::from)
                 .collect(Collectors.toList());
     }
-    public Long addDeveloperToProject(Long projectId, Long developerId){
+
+    public Long addDeveloperToProject(Long projectId, Long developerId) {
         ProjectDeveloperRelationDao projectDeveloperRelationDao = new ProjectDeveloperRelationDao();
         projectDeveloperRelationDao.setProjectId(projectId);
         projectDeveloperRelationDao.setDeveloperId(developerId);
         projectDeveloperRelationDao = projectDeveloperRelationRepository.save(projectDeveloperRelationDao);
         return projectDeveloperRelationDao.getId();
     }
-    public void deleteDeveloperFromProject(Long projectId, Long developerId){
+
+    public void deleteDeveloperFromProject(Long projectId, Long developerId) {
         ProjectDeveloperRelationDao projectDeveloperRelationDao = new ProjectDeveloperRelationDao();
         projectDeveloperRelationDao.setProjectId(projectId);
         projectDeveloperRelationDao.setDeveloperId(developerId);
         projectDeveloperRelationRepository.delete(projectDeveloperRelationDao);
     }
-    public List<ProjectDto> getProjectsByDeveloperId(Long id){
+
+    public List<ProjectDto> getProjectsByDeveloperId(Long id) {
 
         return projectRepository.getByDeveloperId(id).stream()
                 .map(projectConverter::from)

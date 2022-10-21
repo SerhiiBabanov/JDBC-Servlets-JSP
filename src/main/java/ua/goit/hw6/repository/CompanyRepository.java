@@ -113,6 +113,7 @@ public class CompanyRepository implements Repository<CompanyDao> {
         }
         return companyDaoList;
     }
+
     @Override
     public List<CompanyDao> findByListOfID(List<Long> idList) {
         List<CompanyDao> companyDaoList = new ArrayList<>();
@@ -123,8 +124,9 @@ public class CompanyRepository implements Repository<CompanyDao> {
         try (Connection connection = manager.getConnection();
              PreparedStatement statement = connection.prepareStatement(stmt)) {
             int index = 1;
-            for( Long id : idList ) {
-                statement.setLong(  index++, id );}
+            for (Long id : idList) {
+                statement.setLong(index++, id);
+            }
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     CompanyDao companyDao = new CompanyDao();

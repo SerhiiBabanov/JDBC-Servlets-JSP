@@ -6,7 +6,7 @@ import ua.goit.hw6.view.View;
 
 import java.util.List;
 
-public class UtilCommands implements Command{
+public class UtilCommands implements Command {
     private static final String SALARY_COMMANDS = "util";
     private final View view;
     private final DeveloperService developerService;
@@ -15,6 +15,7 @@ public class UtilCommands implements Command{
         this.view = view;
         this.developerService = developerService;
     }
+
     @Override
     public boolean canExecute(String input) {
         return input.split(" ")[0].equals(SALARY_COMMANDS);
@@ -32,7 +33,8 @@ public class UtilCommands implements Command{
         }
 
     }
-    private void getTotalSalaryByProject(String[] args){
+
+    private void getTotalSalaryByProject(String[] args) {
         List<DeveloperDto> developerDtoList = developerService.getByProjectId(Long.valueOf(args[2]));
         int totalSalary = developerDtoList.stream()
                 .map(DeveloperDto::getSalary)

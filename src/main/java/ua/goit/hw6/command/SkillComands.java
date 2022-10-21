@@ -14,6 +14,7 @@ public class SkillComands implements Command {
         this.view = view;
         this.skillService = skillService;
     }
+
     @Override
     public boolean canExecute(String input) {
         return input.split(" ")[0].equals(SKILL_COMMANDS);
@@ -34,6 +35,7 @@ public class SkillComands implements Command {
         }
 
     }
+
     private void create(String[] args) {
         SkillDto skillDto = new SkillDto();
         skillDto.setLanguage(args[2]);
@@ -43,7 +45,7 @@ public class SkillComands implements Command {
     }
 
     private void get(String[] args) {
-        if (args.length==3) {
+        if (args.length == 3) {
             skillService.getById(Long.valueOf(args[2]))
                     .ifPresentOrElse((value) -> view.write(String.valueOf(value)),
                             () -> view.write("Don`t find skill"));

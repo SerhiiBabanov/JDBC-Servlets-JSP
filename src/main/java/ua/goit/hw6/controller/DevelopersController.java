@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/developers")
-public class DeveloperController extends HttpServlet {
+public class DevelopersController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DeveloperDto developerDto = new DeveloperDto();
@@ -23,6 +23,6 @@ public class DeveloperController extends HttpServlet {
         List<DeveloperDto> developers = new ArrayList<>();
         developers.add(developerDto);
         req.setAttribute("developers", developers);
-        req.getRequestDispatcher("/WEB-INF/jsp/developers.jsp").forward(req,resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/developers.jsp").forward(req, resp);
     }
 }

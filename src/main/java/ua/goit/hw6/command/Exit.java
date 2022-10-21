@@ -3,7 +3,7 @@ package ua.goit.hw6.command;
 import ua.goit.hw6.exeptions.ExitException;
 import ua.goit.hw6.view.View;
 
-public class Exit implements Command{
+public class Exit implements Command {
     public static final String EXIT = "exit";
     public static final String BYE_MESSAGE = "Bye!";
 

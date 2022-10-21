@@ -29,6 +29,12 @@ public class SkillRepository implements Repository<SkillDao> {
         this.manager = manager;
     }
 
+    private static void getEntity(ResultSet resultSet, SkillDao skillDao) throws SQLException {
+        skillDao.setId(resultSet.getLong("id"));
+        skillDao.setLanguage(resultSet.getString("language"));
+        skillDao.setLevel(SkillLevel.valueOf(resultSet.getString("level")));
+    }
+
     @Override
     public SkillDao save(SkillDao entity) {
         try (Connection connection = manager.getConnection();
@@ -130,8 +136,9 @@ public class SkillRepository implements Repository<SkillDao> {
         try (Connection connection = manager.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_ALL_WITH_IDS)) {
             int index = 1;
-            for( Long id : idList ) {
-                statement.setLong(  index++, id );}
+            for (Long id : idList) {
+                statement.setLong(index++, id);
+            }
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     SkillDao skillDao = new SkillDao();
@@ -145,6 +152,7 @@ public class SkillRepository implements Repository<SkillDao> {
         }
         return skillDaoList;
     }
+
     public List<SkillDao> findByLanguage(String language) {
         List<SkillDao> skillDaoList = new ArrayList<>();
         try (Connection connection = manager.getConnection();
@@ -163,6 +171,7 @@ public class SkillRepository implements Repository<SkillDao> {
         }
         return skillDaoList;
     }
+
     public List<SkillDao> findByLevel(SkillLevel level) {
         List<SkillDao> skillDaoList = new ArrayList<>();
         try (Connection connection = manager.getConnection();
@@ -181,7 +190,8 @@ public class SkillRepository implements Repository<SkillDao> {
         }
         return skillDaoList;
     }
-    public List<SkillDao> getByDeveloperId(Long developerId){
+
+    public List<SkillDao> getByDeveloperId(Long developerId) {
         List<SkillDao> skillDaoList = new ArrayList<>();
         try (Connection connection = manager.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_ALL_WITH_DEVELOPER_ID)) {
@@ -198,10 +208,5 @@ public class SkillRepository implements Repository<SkillDao> {
             throw new RuntimeException("Select skills with developerId failed");
         }
         return skillDaoList;
-    }
-    private static void getEntity(ResultSet resultSet, SkillDao skillDao) throws SQLException {
-        skillDao.setId(resultSet.getLong("id"));
-        skillDao.setLanguage(resultSet.getString("language"));
-        skillDao.setLevel(SkillLevel.valueOf(resultSet.getString("level")));
     }
 }

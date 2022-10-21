@@ -10,7 +10,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:readPageGenerator entityName="skill">
-  <jsp:body>
-    <t:skillsTable></t:skillsTable>
-  </jsp:body>
+    <jsp:body>
+        <t:skillsTable></t:skillsTable>
+    </jsp:body>
 </t:readPageGenerator>

@@ -2,7 +2,7 @@ package ua.goit.hw6.command;
 
 import ua.goit.hw6.view.View;
 
-public class Help implements Command{
+public class Help implements Command {
     private static final String HELP = "help";
     private final View view;
 

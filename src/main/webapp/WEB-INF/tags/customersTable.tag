@@ -17,7 +17,7 @@
             <td>${customer.name}</td>
             <td>${customer.email}</td>
             <td><a class="btn btn-primary"
-                   href="${pageContext.request.contextPath}/customers?id=${customer.id}">Edit</a>
+                   href="${pageContext.request.contextPath}/customerEdit?id=${customer.id}">Edit</a>
             </td>
             <td>
                 <button class="btn btn-primary"

@@ -17,7 +17,7 @@
             <th scope="row">${company.id}</th>
             <td>${company.name}</td>
             <td>${company.country}</td>
-            <td><a class="btn btn-primary" href="${pageContext.request.contextPath}/companies?id=${company.id}">Edit</a>
+            <td><a class="btn btn-primary" href="${pageContext.request.contextPath}/companyEdit?id=${company.id}">Edit</a>
             </td>
             <td>
                 <button class="btn btn-primary"

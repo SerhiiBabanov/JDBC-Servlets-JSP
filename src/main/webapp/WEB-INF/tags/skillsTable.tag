@@ -17,7 +17,7 @@
             <td>${skill.language}</td>
             <td>${skill.level}</td>
             <td><a class="btn btn-primary"
-                   href="${pageContext.request.contextPath}/skills?id=${skill.id}">Edit</a>
+                   href="${pageContext.request.contextPath}/skillEdit?id=${skill.id}">Edit</a>
             </td>
             <td>
                 <button class="btn btn-primary"

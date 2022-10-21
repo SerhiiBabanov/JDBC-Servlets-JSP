@@ -24,7 +24,7 @@
                 project</a>
             </td>
             <td><a class="btn btn-primary"
-                   href="${pageContext.request.contextPath}/developers?id=${developer.id}">Edit</a>
+                   href="${pageContext.request.contextPath}/developerEdit?id=${developer.id}">Edit</a>
             </td>
             <td>
                 <button class="btn btn-primary"

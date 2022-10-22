@@ -2,7 +2,8 @@
 <%@attribute name="entityName" required="true" type="java.lang.String" %>
 <div class="row gy-3">
     <div class="col-md-3">
-        <button class="w-100 btn btn-primary btn-lg" type="submit">Create ${entityName}</button>
+        <a class="btn btn-primary"
+           href="${pageContext.request.contextPath}/${entityName}Create">Create ${entityName}</a>
     </div>
     <div class="col-md-6">
         <form class="needs-validation" method="GET">

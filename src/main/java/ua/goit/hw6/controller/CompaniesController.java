@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 
 @WebServlet("/companies")
@@ -48,5 +49,15 @@ public class CompaniesController extends HttpServlet {
         List<CompanyDto> companies = companyService.getAll();
         req.setAttribute("companies", companies);
         req.getRequestDispatcher("/WEB-INF/jsp/companies.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getParameterMap().containsKey("id")) {
+            Optional<CompanyDto> companyDto = companyService.getById(Long.valueOf(req.getParameter("id")));
+            companyDto.ifPresent((company) -> companyService.delete(company));
+            req.removeAttribute("id");
+            req.getRequestDispatcher("/WEB-INF/jsp/companies.jsp").forward(req, resp);
+        }
     }
 }

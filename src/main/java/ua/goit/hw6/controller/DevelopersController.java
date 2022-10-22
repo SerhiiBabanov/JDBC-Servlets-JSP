@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 
 @WebServlet("/developers")
@@ -58,5 +59,15 @@ public class DevelopersController extends HttpServlet {
         List<DeveloperDto> developers = developerService.getAll();
         req.setAttribute("developers", developers);
         req.getRequestDispatcher("/WEB-INF/jsp/developers.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getParameterMap().containsKey("id")) {
+            Optional<DeveloperDto> developerDto = developerService.getById(Long.valueOf(req.getParameter("id")));
+            developerDto.ifPresent((developer) -> developerService.delete(developer));
+            req.removeAttribute("id");
+            req.getRequestDispatcher("/WEB-INF/jsp/developers.jsp").forward(req, resp);
+        }
     }
 }

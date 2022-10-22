@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 
 @WebServlet("/projects")
@@ -56,5 +57,15 @@ public class ProjectsController extends HttpServlet {
         req.setAttribute("projects", projects);
         req.getRequestDispatcher("/WEB-INF/jsp/projects.jsp").forward(req, resp);
 
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getParameterMap().containsKey("id")) {
+            Optional<ProjectDto> projectDto = projectService.getById(Long.valueOf(req.getParameter("id")));
+            projectDto.ifPresent((project) -> projectService.delete(project));
+            req.removeAttribute("id");
+            req.getRequestDispatcher("/WEB-INF/jsp/projects.jsp").forward(req, resp);
+        }
     }
 }

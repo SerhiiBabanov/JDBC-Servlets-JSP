@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 
 @WebServlet("/skills")
@@ -47,5 +48,15 @@ public class SkillsController extends HttpServlet {
         List<SkillDto> skills = skillService.getAll();
         req.setAttribute("skills", skills);
         req.getRequestDispatcher("/WEB-INF/jsp/skills.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getParameterMap().containsKey("id")) {
+            Optional<SkillDto> skillDto = skillService.getById(Long.valueOf(req.getParameter("id")));
+            skillDto.ifPresent((skill) -> skillService.delete(skill));
+            req.removeAttribute("id");
+            req.getRequestDispatcher("/WEB-INF/jsp/skills.jsp").forward(req, resp);
+        }
     }
 }

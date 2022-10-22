@@ -15,6 +15,6 @@ public class CompanyCreateController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CompanyDto emptyCompanyDto = new CompanyDto();
         req.setAttribute("company", emptyCompanyDto);
-        req.getRequestDispatcher("/WEB-INF/jsp/companyFormCreate.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/companyCreateForm.jsp").forward(req, resp);
     }
 }

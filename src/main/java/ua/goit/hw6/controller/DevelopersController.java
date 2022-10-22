@@ -72,4 +72,29 @@ public class DevelopersController extends HttpServlet {
             resp.sendRedirect(redirect);
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        DeveloperDto developerDto = new DeveloperDto();
+        developerDto.setName(req.getParameter("name"));
+        developerDto.setUsername(req.getParameter("username"));
+        developerDto.setSalary(Integer.valueOf(req.getParameter("salary")));
+        developerService.create(developerDto);
+        String redirect =
+                resp.encodeRedirectURL(req.getContextPath() + "/developers");
+        resp.sendRedirect(redirect);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        DeveloperDto developerDto = new DeveloperDto();
+        developerDto.setId(Long.valueOf(req.getParameter("id")));
+        developerDto.setName(req.getParameter("name"));
+        developerDto.setUsername(req.getParameter("username"));
+        developerDto.setSalary(Integer.valueOf(req.getParameter("salary")));
+        developerService.update(developerDto);
+        String redirect =
+                resp.encodeRedirectURL(req.getContextPath() + "/developers");
+        resp.sendRedirect(redirect);
+    }
 }

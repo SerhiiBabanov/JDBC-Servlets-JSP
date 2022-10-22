@@ -4,19 +4,22 @@
         $.ajax({
             url: 'test.html',
             type: 'PUT',
-            success: function (result) {
-                // Do something with the result
+            success: function () {
+                location.reload();
             }
         });
     }
 
     function makeDELETErequest(urlParametr) {
-        $.ajax({
-            url: urlParametr,
-            type: 'DELETE',
-            success: function (result) {
-                // Do something with the result
-            }
-        });
+        if (confirm('Are you sure you want to delete this?')) {
+            $.ajax({
+                url: urlParametr,
+                type: 'DELETE',
+                success: function () {
+                    location.reload();
+                }
+            });
+        }
+
     }
 </script>

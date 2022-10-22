@@ -61,4 +61,27 @@ public class CustomersController extends HttpServlet {
             resp.sendRedirect(redirect);
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setName(req.getParameter("name"));
+        customerDto.setEmail(req.getParameter("email"));
+        customerService.create(customerDto);
+        String redirect =
+                resp.encodeRedirectURL(req.getContextPath() + "/customers");
+        resp.sendRedirect(redirect);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setId(Long.valueOf(req.getParameter("id")));
+        customerDto.setName(req.getParameter("name"));
+        customerDto.setEmail(req.getParameter("email"));
+        customerService.update(customerDto);
+        String redirect =
+                resp.encodeRedirectURL(req.getContextPath() + "/customers");
+        resp.sendRedirect(redirect);
+    }
 }

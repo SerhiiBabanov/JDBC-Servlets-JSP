@@ -65,7 +65,9 @@ public class ProjectsController extends HttpServlet {
             Optional<ProjectDto> projectDto = projectService.getById(Long.valueOf(req.getParameter("id")));
             projectDto.ifPresent((project) -> projectService.delete(project));
             req.removeAttribute("id");
-            req.getRequestDispatcher("/WEB-INF/jsp/projects.jsp").forward(req, resp);
+            String redirect =
+                    resp.encodeRedirectURL(req.getContextPath() + "/projects");
+            resp.sendRedirect(redirect);
         }
     }
 }

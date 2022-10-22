@@ -42,7 +42,7 @@ public class SkillsController extends HttpServlet {
             List<SkillDto> skills = new ArrayList<>();
             skills.add(skillService.getById(Long.valueOf(req.getParameter("id"))).orElseGet(SkillDto::new));
             req.setAttribute("skills", skills);
-            req.getRequestDispatcher("/WEB-INF/jsp/developers.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/jsp/skills.jsp").forward(req, resp);
         }
 
         List<SkillDto> skills = skillService.getAll();
@@ -56,7 +56,9 @@ public class SkillsController extends HttpServlet {
             Optional<SkillDto> skillDto = skillService.getById(Long.valueOf(req.getParameter("id")));
             skillDto.ifPresent((skill) -> skillService.delete(skill));
             req.removeAttribute("id");
-            req.getRequestDispatcher("/WEB-INF/jsp/skills.jsp").forward(req, resp);
+            String redirect =
+                    resp.encodeRedirectURL(req.getContextPath() + "/skills");
+            resp.sendRedirect(redirect);
         }
     }
 }

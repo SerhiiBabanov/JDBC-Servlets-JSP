@@ -57,7 +57,9 @@ public class CompaniesController extends HttpServlet {
             Optional<CompanyDto> companyDto = companyService.getById(Long.valueOf(req.getParameter("id")));
             companyDto.ifPresent((company) -> companyService.delete(company));
             req.removeAttribute("id");
-            req.getRequestDispatcher("/WEB-INF/jsp/companies.jsp").forward(req, resp);
+            String redirect =
+                    resp.encodeRedirectURL(req.getContextPath() + "/companies");
+            resp.sendRedirect(redirect);
         }
     }
 }

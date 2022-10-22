@@ -67,7 +67,9 @@ public class DevelopersController extends HttpServlet {
             Optional<DeveloperDto> developerDto = developerService.getById(Long.valueOf(req.getParameter("id")));
             developerDto.ifPresent((developer) -> developerService.delete(developer));
             req.removeAttribute("id");
-            req.getRequestDispatcher("/WEB-INF/jsp/developers.jsp").forward(req, resp);
+            String redirect =
+                    resp.encodeRedirectURL(req.getContextPath() + "/developers");
+            resp.sendRedirect(redirect);
         }
     }
 }

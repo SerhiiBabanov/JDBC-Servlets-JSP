@@ -56,7 +56,9 @@ public class CustomersController extends HttpServlet {
             Optional<CustomerDto> customerDto = customerService.getById(Long.valueOf(req.getParameter("id")));
             customerDto.ifPresent((customer) -> customerService.delete(customer));
             req.removeAttribute("id");
-            req.getRequestDispatcher("/WEB-INF/jsp/customers.jsp").forward(req, resp);
+            String redirect =
+                    resp.encodeRedirectURL(req.getContextPath() + "/customers");
+            resp.sendRedirect(redirect);
         }
     }
 }

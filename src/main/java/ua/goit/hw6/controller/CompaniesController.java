@@ -62,4 +62,24 @@ public class CompaniesController extends HttpServlet {
             resp.sendRedirect(redirect);
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CompanyDto companyDto = new CompanyDto();
+        companyDto.setName(req.getParameter("name"));
+        companyDto.setCountry(req.getParameter("country"));
+        companyService.create(companyDto);
+        String redirect =
+                resp.encodeRedirectURL(req.getContextPath() + "/companies");
+        resp.sendRedirect(redirect);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CompanyDto companyDto = new CompanyDto();
+        companyDto.setId(Long.valueOf(req.getParameter("id")));
+        companyDto.setName(req.getParameter("name"));
+        companyDto.setCountry(req.getParameter("country"));
+        companyService.update(companyDto);
+    }
 }

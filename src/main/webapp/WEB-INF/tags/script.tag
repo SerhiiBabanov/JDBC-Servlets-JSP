@@ -1,8 +1,8 @@
 <%@tag description="Overall Page template" pageEncoding="UTF-8" %>
 <script>
-    function makePUTrequest() {
+    function makePUTrequest(urlParametr) {
         $.ajax({
-            url: 'test.html',
+            url: urlParametr,
             type: 'PUT',
             success: function () {
                 location.reload();

@@ -39,6 +39,11 @@
             }
             body[name] = value;
         })
+        {
+            var e = document.querySelectorAll("[class=form-select]")[0];
+            var name = e.getAttribute("name");
+            body[name] = e.value;
+        }
         var xhr = new XMLHttpRequest();
         xhr.open( "PUT", url );
         xhr.setRequestHeader( "Content-Type", "application/json; charset=utf-8" );

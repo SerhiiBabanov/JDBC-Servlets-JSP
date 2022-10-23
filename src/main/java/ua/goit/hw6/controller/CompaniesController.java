@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 @WebServlet("/companies")
 public class CompaniesController extends HttpServlet {
@@ -77,8 +78,8 @@ public class CompaniesController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Gson gson = new Gson();
-        CompanyDto companyDto = gson.fromJson(req.getReader(), CompanyDto.class);
+        String requestData = req.getReader().lines().collect(Collectors.joining());
+        CompanyDto companyDto = new Gson().fromJson(requestData, CompanyDto.class);
         companyService.update(companyDto);
     }
 }

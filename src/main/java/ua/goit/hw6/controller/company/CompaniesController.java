@@ -1,4 +1,4 @@
-package ua.goit.hw6.controller;
+package ua.goit.hw6.controller.company;
 
 import com.google.gson.Gson;
 import ua.goit.hw6.config.DatabaseManagerConnector;
@@ -45,12 +45,12 @@ public class CompaniesController extends HttpServlet {
             List<CompanyDto> companies = new ArrayList<>();
             companies.add(companyService.getById(Long.valueOf(req.getParameter("id"))).orElseGet(CompanyDto::new));
             req.setAttribute("companies", companies);
-            req.getRequestDispatcher("/WEB-INF/jsp/companies.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/jsp/company/companies.jsp").forward(req, resp);
         }
 
         List<CompanyDto> companies = companyService.getAll();
         req.setAttribute("companies", companies);
-        req.getRequestDispatcher("/WEB-INF/jsp/companies.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/company/companies.jsp").forward(req, resp);
     }
 
     @Override

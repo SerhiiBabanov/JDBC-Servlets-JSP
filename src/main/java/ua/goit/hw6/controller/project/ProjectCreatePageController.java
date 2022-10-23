@@ -1,4 +1,4 @@
-package ua.goit.hw6.controller;
+package ua.goit.hw6.controller.project;
 
 import ua.goit.hw6.model.dto.ProjectDto;
 
@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/projectCreate")
-public class ProjectCreateController extends HttpServlet {
+public class ProjectCreatePageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProjectDto emptyProjectDto = new ProjectDto();
         req.setAttribute("project", emptyProjectDto);
         req.setAttribute("dateValue", null);
-        req.getRequestDispatcher("/WEB-INF/jsp/projectCreateForm.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/project/projectCreate.jsp").forward(req, resp);
     }
 }

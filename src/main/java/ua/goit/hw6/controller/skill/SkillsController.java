@@ -1,4 +1,4 @@
-package ua.goit.hw6.controller;
+package ua.goit.hw6.controller.skill;
 
 import com.google.gson.Gson;
 import ua.goit.hw6.config.DatabaseManagerConnector;
@@ -45,12 +45,12 @@ public class SkillsController extends HttpServlet {
             List<SkillDto> skills = new ArrayList<>();
             skills.add(skillService.getById(Long.valueOf(req.getParameter("id"))).orElseGet(SkillDto::new));
             req.setAttribute("skills", skills);
-            req.getRequestDispatcher("/WEB-INF/jsp/skills.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/jsp/skill/skills.jsp").forward(req, resp);
         }
 
         List<SkillDto> skills = skillService.getAll();
         req.setAttribute("skills", skills);
-        req.getRequestDispatcher("/WEB-INF/jsp/skills.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/skill/skills.jsp").forward(req, resp);
     }
 
     @Override

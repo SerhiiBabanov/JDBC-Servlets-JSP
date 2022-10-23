@@ -1,4 +1,4 @@
-package ua.goit.hw6.controller;
+package ua.goit.hw6.controller.developer;
 
 import ua.goit.hw6.config.DatabaseManagerConnector;
 import ua.goit.hw6.config.PropertiesConfig;
@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 @WebServlet("/developerEdit")
-public class DeveloperUpdateController extends HttpServlet {
+public class DeveloperUpdatePageController extends HttpServlet {
     private DeveloperService developerService;
 
     @Override
@@ -42,6 +42,6 @@ public class DeveloperUpdateController extends HttpServlet {
         Long id = Long.valueOf(req.getParameter("id"));
         DeveloperDto developerDto = developerService.getById(id).orElseGet(DeveloperDto::new);
         req.setAttribute("developer", developerDto);
-        req.getRequestDispatcher("/WEB-INF/jsp/developerUpdatePage.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/developer/developerUpdate.jsp").forward(req, resp);
     }
 }

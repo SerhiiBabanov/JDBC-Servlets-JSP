@@ -1,4 +1,4 @@
-package ua.goit.hw6.controller;
+package ua.goit.hw6.controller.company;
 
 import ua.goit.hw6.model.dto.CompanyDto;
 
@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/companyCreate")
-public class CompanyCreateController extends HttpServlet {
+public class CompanyCreatePageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CompanyDto emptyCompanyDto = new CompanyDto();
         req.setAttribute("company", emptyCompanyDto);
-        req.getRequestDispatcher("/WEB-INF/jsp/companyCreateForm.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/company/companyCreate.jsp").forward(req, resp);
     }
 }

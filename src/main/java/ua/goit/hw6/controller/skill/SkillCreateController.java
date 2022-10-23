@@ -1,6 +1,6 @@
-package ua.goit.hw6.controller;
+package ua.goit.hw6.controller.skill;
 
-import ua.goit.hw6.model.dto.CustomerDto;
+import ua.goit.hw6.model.dto.SkillDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/customerCreate")
-public class CustomerCreateController extends HttpServlet {
+@WebServlet("/skillCreate")
+public class SkillCreateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CustomerDto emptyCustomerDto = new CustomerDto();
-        req.setAttribute("customer", emptyCustomerDto);
-        req.getRequestDispatcher("/WEB-INF/jsp/customerCreateForm.jsp").forward(req, resp);
+        SkillDto emptySkillDto = new SkillDto();
+        req.setAttribute("skill", emptySkillDto);
+        req.getRequestDispatcher("/WEB-INF/jsp/skill/skillCreate.jsp").forward(req, resp);
     }
 }

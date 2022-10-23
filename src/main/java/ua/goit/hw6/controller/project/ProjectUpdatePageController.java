@@ -1,4 +1,4 @@
-package ua.goit.hw6.controller;
+package ua.goit.hw6.controller.project;
 
 import ua.goit.hw6.config.DatabaseManagerConnector;
 import ua.goit.hw6.config.PropertiesConfig;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 @WebServlet("/projectEdit")
-public class ProjectUpdateController extends HttpServlet {
+public class ProjectUpdatePageController extends HttpServlet {
     private ProjectService projectService;
 
     @Override
@@ -38,6 +38,6 @@ public class ProjectUpdateController extends HttpServlet {
         Long id = Long.valueOf(req.getParameter("id"));
         ProjectDto projectDto = projectService.getById(id).orElseGet(ProjectDto::new);
         req.setAttribute("project", projectDto);
-        req.getRequestDispatcher("/WEB-INF/jsp/projectUpdatePage.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/project/projectUpdate.jsp").forward(req, resp);
     }
 }

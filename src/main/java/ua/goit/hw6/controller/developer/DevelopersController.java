@@ -1,4 +1,4 @@
-package ua.goit.hw6.controller;
+package ua.goit.hw6.controller.developer;
 
 import com.google.gson.Gson;
 import ua.goit.hw6.config.DatabaseManagerConnector;
@@ -50,17 +50,17 @@ public class DevelopersController extends HttpServlet {
             List<DeveloperDto> developers = new ArrayList<>();
             developers.add(developerService.getById(Long.valueOf(req.getParameter("id"))).orElseGet(DeveloperDto::new));
             req.setAttribute("developers", developers);
-            req.getRequestDispatcher("/WEB-INF/jsp/developers.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/jsp/developer/developers.jsp").forward(req, resp);
         }
         if (req.getParameterMap().containsKey("projectId")) {
             List<DeveloperDto> developers = developerService.getByProjectId(Long.valueOf(req.getParameter("projectId")));
             req.setAttribute("developers", developers);
-            req.getRequestDispatcher("/WEB-INF/jsp/developers.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/jsp/developer/developers.jsp").forward(req, resp);
         }
 
         List<DeveloperDto> developers = developerService.getAll();
         req.setAttribute("developers", developers);
-        req.getRequestDispatcher("/WEB-INF/jsp/developers.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/developer/developers.jsp").forward(req, resp);
     }
 
     @Override

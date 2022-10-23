@@ -1,4 +1,4 @@
-package ua.goit.hw6.controller;
+package ua.goit.hw6.controller.project;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,18 +49,18 @@ public class ProjectsController extends HttpServlet {
             List<ProjectDto> projects = new ArrayList<>();
             projects.add(projectService.getById(Long.valueOf(req.getParameter("id"))).orElseGet(ProjectDto::new));
             req.setAttribute("projects", projects);
-            req.getRequestDispatcher("/WEB-INF/jsp/projects.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/jsp/project/projects.jsp").forward(req, resp);
         }
 
         if (req.getParameterMap().containsKey("developerId")) {
             List<ProjectDto> projects = projectService.getProjectsByDeveloperId(Long.valueOf(req.getParameter("developerId")));
             req.setAttribute("projects", projects);
-            req.getRequestDispatcher("/WEB-INF/jsp/projects.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/jsp/project/projects.jsp").forward(req, resp);
         }
 
         List<ProjectDto> projects = projectService.getAll();
         req.setAttribute("projects", projects);
-        req.getRequestDispatcher("/WEB-INF/jsp/projects.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/project/projects.jsp").forward(req, resp);
 
     }
 

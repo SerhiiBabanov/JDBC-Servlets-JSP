@@ -1,4 +1,4 @@
-package ua.goit.hw6.controller;
+package ua.goit.hw6.controller.developer;
 
 import ua.goit.hw6.model.dto.DeveloperDto;
 
@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/developerCreate")
-public class DeveloperCreateController extends HttpServlet {
+public class DeveloperCreatePageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DeveloperDto emptyDeveloperDto = new DeveloperDto();
         req.setAttribute("developer", emptyDeveloperDto);
-        req.getRequestDispatcher("/WEB-INF/jsp/developerCreateForm.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/developer/developerCreate.jsp").forward(req, resp);
     }
 }

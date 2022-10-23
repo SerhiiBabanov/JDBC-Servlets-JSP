@@ -1,4 +1,4 @@
-package ua.goit.hw6.controller;
+package ua.goit.hw6.controller.customer;
 
 import com.google.gson.Gson;
 import ua.goit.hw6.config.DatabaseManagerConnector;
@@ -44,12 +44,12 @@ public class CustomersController extends HttpServlet {
             List<CustomerDto> customers = new ArrayList<>();
             customers.add(customerService.getById(Long.valueOf(req.getParameter("id"))).orElseGet(CustomerDto::new));
             req.setAttribute("customers", customers);
-            req.getRequestDispatcher("/WEB-INF/jsp/customers.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/jsp/customer/customers.jsp").forward(req, resp);
         }
 
         List<CustomerDto> customers = customerService.getAll();
         req.setAttribute("customers", customers);
-        req.getRequestDispatcher("/WEB-INF/jsp/customers.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/customer/customers.jsp").forward(req, resp);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package ua.goit.hw6.controller;
+package ua.goit.hw6.controller.skill;
 
 import ua.goit.hw6.config.DatabaseManagerConnector;
 import ua.goit.hw6.config.PropertiesConfig;
@@ -36,6 +36,6 @@ public class SkillUpdateController extends HttpServlet {
         Long id = Long.valueOf(req.getParameter("id"));
         SkillDto skillDto = skillService.getById(id).orElseGet(SkillDto::new);
         req.setAttribute("skill", skillDto);
-        req.getRequestDispatcher("/WEB-INF/jsp/skillUpdatePage.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/skill/skillUpdate.jsp").forward(req, resp);
     }
 }

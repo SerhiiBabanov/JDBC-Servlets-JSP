@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -69,5 +70,38 @@ public class ProjectsController extends HttpServlet {
                     resp.encodeRedirectURL(req.getContextPath() + "/projects");
             resp.sendRedirect(redirect);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ProjectDto projectDto = new ProjectDto();
+        projectDto.setName(req.getParameter("name"));
+        projectDto.setGit_url(req.getParameter("git_url"));
+        projectDto.setCost(Integer.valueOf(req.getParameter("cost")));
+        String dateString = req.getParameter("date");
+        LocalDate date = LocalDate.parse(dateString);
+        Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        projectDto.setDate(instant.toEpochMilli());
+        projectService.create(projectDto);
+        String redirect =
+                resp.encodeRedirectURL(req.getContextPath() + "/projects");
+        resp.sendRedirect(redirect);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ProjectDto projectDto = new ProjectDto();
+        projectDto.setId(Long.valueOf(req.getParameter("id")));
+        projectDto.setName(req.getParameter("name"));
+        projectDto.setGit_url(req.getParameter("git_url"));
+        projectDto.setCost(Integer.valueOf(req.getParameter("cost")));
+        String dateString = req.getParameter("date");
+        LocalDate date = LocalDate.parse(dateString);
+        Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        projectDto.setDate(instant.toEpochMilli());
+        projectService.update(projectDto);
+        String redirect =
+                resp.encodeRedirectURL(req.getContextPath() + "/projects");
+        resp.sendRedirect(redirect);
     }
 }

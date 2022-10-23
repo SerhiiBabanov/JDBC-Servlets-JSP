@@ -14,7 +14,7 @@ public class ProjectRepository implements Repository<ProjectDao> {
     private static final String DELETE = "delete from projects where name = ? and git_url = ? and cost = ?";
     private static final String SELECT_BY_ID = "select id, name, git_url, cost, date from projects where id = ?";
     private static final String UPDATE = "update projects set name = ?, git_url = ?, cost = ?, date = ? where id = ? " +
-            "returning name, git_url, cost";
+            "returning id, name, git_url, cost, date";
     private static final String SELECT_ALL = "select id, name, git_url, cost, date from projects";
     private static final String SELECT_ALL_WITH_IDS = "select id, name, git_url, cost, date from projects " +
             "where id in (%s)";
@@ -102,8 +102,8 @@ public class ProjectRepository implements Repository<ProjectDao> {
             statement.setString(1, entity.getName());
             statement.setString(2, entity.getGit_url());
             statement.setInt(3, entity.getCost());
-            statement.setLong(4, entity.getId());
-            statement.setLong(5, entity.getDate());
+            statement.setLong(4, entity.getDate());
+            statement.setLong(5, entity.getId());
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     getEntity(resultSet, projectDao);

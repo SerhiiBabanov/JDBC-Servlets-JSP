@@ -5,6 +5,7 @@ import ua.goit.hw6.service.DeveloperService;
 import ua.goit.hw6.service.ProjectService;
 import ua.goit.hw6.view.View;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -49,7 +50,7 @@ public class ProjectCommands implements Command {
         projectDto.setName(args[2]);
         projectDto.setGit_url(args[3]);
         projectDto.setCost(Integer.valueOf(args[4]));
-        projectDto.setDate(System.currentTimeMillis());
+        projectDto.setDate(LocalDate.now());
         projectService.create(projectDto);
         view.write("Project created");
     }
@@ -71,7 +72,7 @@ public class ProjectCommands implements Command {
         projectDto.setName(args[3]);
         projectDto.setGit_url(args[4]);
         projectDto.setCost(Integer.valueOf(args[5]));
-        projectDto.setDate(Long.valueOf(args[6]));
+        projectDto.setDate(LocalDate.parse(args[6]));
         projectService.update(projectDto);
         view.write("Project updated");
     }

@@ -1,6 +1,9 @@
 package ua.goit.hw6.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import ua.goit.hw6.config.DatabaseManagerConnector;
+import ua.goit.hw6.config.LocalDateDeserializer;
 import ua.goit.hw6.config.PropertiesConfig;
 import ua.goit.hw6.model.dto.ProjectDto;
 import ua.goit.hw6.repository.ProjectDeveloperRelationRepository;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 @WebServlet("/projects")
 public class ProjectsController extends HttpServlet {
@@ -78,10 +82,7 @@ public class ProjectsController extends HttpServlet {
         projectDto.setName(req.getParameter("name"));
         projectDto.setGit_url(req.getParameter("git_url"));
         projectDto.setCost(Integer.valueOf(req.getParameter("cost")));
-        String dateString = req.getParameter("date");
-        LocalDate date = LocalDate.parse(dateString);
-        Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
-        projectDto.setDate(instant.toEpochMilli());
+        projectDto.setDate(LocalDate.parse(req.getParameter("date")));
         projectService.create(projectDto);
         String redirect =
                 resp.encodeRedirectURL(req.getContextPath() + "/projects");
@@ -90,18 +91,11 @@ public class ProjectsController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProjectDto projectDto = new ProjectDto();
-        projectDto.setId(Long.valueOf(req.getParameter("id")));
-        projectDto.setName(req.getParameter("name"));
-        projectDto.setGit_url(req.getParameter("git_url"));
-        projectDto.setCost(Integer.valueOf(req.getParameter("cost")));
-        String dateString = req.getParameter("date");
-        LocalDate date = LocalDate.parse(dateString);
-        Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
-        projectDto.setDate(instant.toEpochMilli());
+        String requestData = req.getReader().lines().collect(Collectors.joining());
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
+        ProjectDto projectDto = gson.fromJson(requestData, ProjectDto.class);
         projectService.update(projectDto);
-        String redirect =
-                resp.encodeRedirectURL(req.getContextPath() + "/projects");
-        resp.sendRedirect(redirect);
     }
 }

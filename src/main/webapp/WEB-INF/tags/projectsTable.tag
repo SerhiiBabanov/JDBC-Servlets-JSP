@@ -23,9 +23,7 @@
             <td><a href="${project.git_url}">Git_url</a></td>
             <td>${project.cost}</td>
             <td>
-                <jsp:useBean id="dateValue" class="java.util.Date"/>
-                <jsp:setProperty name="dateValue" property="time" value="${project.date}"/>
-                <fmt:formatDate value="${dateValue}" pattern="MM/dd/yyyy"/>
+                ${project.date}
             </td>
             <td><a class="btn btn-primary"
                    href="${pageContext.request.contextPath}/developers?projectId=${project.id}">Get list of

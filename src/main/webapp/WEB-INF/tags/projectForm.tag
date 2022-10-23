@@ -44,14 +44,14 @@
                 <label class="form-label" for="date">Date</label>
                 <div class="input-group has-validation">
 
-                    <input class="form-control" id="date" name="date" value="${dateValue}" placeholder="${dateValue}" required="" type="date">
+                    <input class="form-control" id="date" name="date" value="${project.date}" placeholder="${project.date}" required="" type="date">
                 </div>
             </div>
             <hr class="my-4">
 
 
             <button class="w-100 btn btn-primary btn-lg" type="submit"
-                    <c:if test="${entityName.equal('Update')}"> onclick="makePUTrequest('${pageContext.request.contextPath}/projects}')"</c:if>>
+                    <c:if test="${methodName eq 'Update'}"> name="update_data" resource="${pageContext.request.contextPath}/projects" </c:if>>
                 ${methodName} project
             </button>
         </div>

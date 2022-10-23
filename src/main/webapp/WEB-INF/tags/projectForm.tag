@@ -10,14 +10,14 @@
 
             <div class="col-3">
                 <label class="form-label" for="id">id</label>
-                <input class="form-control" disabled id="id" name="id" placeholder="${project.id}" type="number">
+                <input class="form-control" disabled id="id" name="id" value="${project.id}" placeholder="${project.id}" type="number">
             </div>
 
             <div class="col-3">
                 <label class="form-label" for="name">Name</label>
                 <div class="input-group has-validation">
 
-                    <input class="form-control" id="name" name="name" placeholder="${project.name}" required="" type="text">
+                    <input class="form-control" id="name" name="name" value="${project.name}" placeholder="${project.name}" required="" type="text">
                     <div class="invalid-feedback">
                         Name is required.
                     </div>
@@ -28,7 +28,7 @@
                 <label class="form-label" for="git_url">Git_url</label>
                 <div class="input-group has-validation">
 
-                    <input class="form-control" id="git_url" name="git_url" placeholder="${project.git_url}" required="" type="text">
+                    <input class="form-control" id="git_url" name="git_url" value="${project.git_url}" placeholder="${project.git_url}" required="" type="text">
                 </div>
             </div>
 
@@ -36,7 +36,7 @@
                 <label class="form-label" for="cost">Cost</label>
                 <div class="input-group has-validation">
 
-                    <input class="form-control" id="cost" name="cost" placeholder="${project.cost}" required="" type="number">
+                    <input class="form-control" id="cost" name="cost" value="${project.cost}" placeholder="${project.cost}" required="" type="number">
                 </div>
             </div>
 
@@ -44,7 +44,7 @@
                 <label class="form-label" for="date">Date</label>
                 <div class="input-group has-validation">
 
-                    <input class="form-control" id="date" name="date" placeholder="${dateValue}" required="" type="date">
+                    <input class="form-control" id="date" name="date" value="${dateValue}" placeholder="${dateValue}" required="" type="date">
                 </div>
             </div>
             <hr class="my-4">

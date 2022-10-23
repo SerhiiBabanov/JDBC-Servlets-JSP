@@ -15,12 +15,12 @@
 
             <div class="col-3">
                 <label class="form-label" for="name">Name</label>
-                <input class="form-control" id="name" name="name" placeholder="${company.name}" required type="text">
+                <input class="form-control" id="name" name="name" value="${company.name}" placeholder="${company.name}" required type="text">
             </div>
 
             <div class="col-3">
                 <label class="form-label" for="country">Country </label>
-                <input class="form-control" id="country" name="country" placeholder="${company.country}" type="text">
+                <input class="form-control" id="country" name="country" value="${company.country}" placeholder="${company.country}" type="text">
             </div>
 
             <hr class="my-4">

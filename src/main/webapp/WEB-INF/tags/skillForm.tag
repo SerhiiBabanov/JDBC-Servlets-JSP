@@ -10,14 +10,16 @@
 
             <div class="col-3">
                 <label class="form-label" for="id">id</label>
-                <input class="form-control" disabled id="id" name="id" placeholder="${skill.id}" type="number">
+                <input class="form-control" disabled id="id" name="id" value="${skill.id}" placeholder="${skill.id}"
+                       type="number">
             </div>
 
             <div class="col-3">
                 <label class="form-label" for="language">Language</label>
                 <div class="input-group has-validation">
 
-                    <input class="form-control" id="language" name="language" placeholder="${skill.language}" required="" type="text">
+                    <input class="form-control" id="language" name="language" value="${skill.language}"
+                           placeholder="${skill.language}" required="" type="text">
                     <div class="invalid-feedback">
                         Language is required.
                     </div>
@@ -27,7 +29,7 @@
             <div class="col-3">
                 <label class="form-label" for="level">Level </label>
                 <select class="form-select" id="level" name="level" required="">
-                    <option value="">${skill.level}</option>
+                    <option value="${skill.level}">${skill.level}</option>
                     <option>Junior</option>
                     <option>Middle</option>
                     <option>Senior</option>

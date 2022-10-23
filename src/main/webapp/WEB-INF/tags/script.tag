@@ -41,8 +41,10 @@
         })
         {
             var e = document.querySelectorAll("[class=form-select]")[0];
-            var name = e.getAttribute("name");
-            body[name] = e.value;
+            if (typeof e !== 'undefined'){
+                var name = e.getAttribute("name");
+                body[name] = e.value;
+            }
         }
         var xhr = new XMLHttpRequest();
         xhr.open( "PUT", url );

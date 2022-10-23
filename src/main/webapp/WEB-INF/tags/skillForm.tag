@@ -29,10 +29,9 @@
             <div class="col-3">
                 <label class="form-label" for="level">Level </label>
                 <select class="form-select" id="level" name="level" required="">
-                    <option value="${skill.level}">${skill.level}</option>
-                    <option>Junior</option>
-                    <option>Middle</option>
-                    <option>Senior</option>
+                    <option value="Junior" <c:if test="${skill.level eq 'Junior'}">selected</c:if>>Junior</option>
+                    <option value="Middle" <c:if test="${skill.level eq 'Middle'}">selected</c:if>>>Middle</option>
+                    <option value="Senior" <c:if test="${skill.level eq 'Senior'}">selected</c:if>>>Senior</option>
                 </select>
 
             </div>
@@ -40,7 +39,7 @@
 
 
             <button class="w-100 btn btn-primary btn-lg" type="submit"
-                    <c:if test="${entityName.equal('Update')}"> onclick="makePUTrequest('${pageContext.request.contextPath}/skills}')"</c:if>>
+                    <c:if test="${methodName eq 'Update'}"> name="update_data" resource="${pageContext.request.contextPath}/skills" </c:if>>
                 ${methodName} skill
             </button>
         </div>

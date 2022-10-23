@@ -1,5 +1,6 @@
 package ua.goit.hw6.controller;
 
+import com.google.gson.Gson;
 import ua.goit.hw6.config.DatabaseManagerConnector;
 import ua.goit.hw6.config.PropertiesConfig;
 import ua.goit.hw6.model.SkillLevel;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 @WebServlet("/skills")
 public class SkillsController extends HttpServlet {
@@ -76,13 +78,8 @@ public class SkillsController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        SkillDto skillDto = new SkillDto();
-        skillDto.setId(Long.valueOf(req.getParameter("id")));
-        skillDto.setLanguage(req.getParameter("language"));
-        skillDto.setLevel(SkillLevel.valueOf(req.getParameter("level")));
+        String requestData = req.getReader().lines().collect(Collectors.joining());
+        SkillDto skillDto = new Gson().fromJson(requestData, SkillDto.class);
         skillService.update(skillDto);
-        String redirect =
-                resp.encodeRedirectURL(req.getContextPath() + "/skills");
-        resp.sendRedirect(redirect);
     }
 }

@@ -1,5 +1,6 @@
 package ua.goit.hw6.controller;
 
+import com.google.gson.Gson;
 import ua.goit.hw6.config.DatabaseManagerConnector;
 import ua.goit.hw6.config.PropertiesConfig;
 import ua.goit.hw6.model.dto.CustomerDto;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 @WebServlet("/customers")
 public class CustomersController extends HttpServlet {
@@ -75,13 +77,8 @@ public class CustomersController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CustomerDto customerDto = new CustomerDto();
-        customerDto.setId(Long.valueOf(req.getParameter("id")));
-        customerDto.setName(req.getParameter("name"));
-        customerDto.setEmail(req.getParameter("email"));
+        String requestData = req.getReader().lines().collect(Collectors.joining());
+        CustomerDto customerDto = new Gson().fromJson(requestData, CustomerDto.class);
         customerService.update(customerDto);
-        String redirect =
-                resp.encodeRedirectURL(req.getContextPath() + "/customers");
-        resp.sendRedirect(redirect);
     }
 }

@@ -9,7 +9,7 @@
 
             <div class="col-3">
                 <label class="form-label" for="id">id</label>
-                <input class="form-control" disabled id="id" name="id" placeholder="${customer.id}" type="number">
+                <input class="form-control" disabled id="id" name="id" value="${customer.id}" placeholder="${customer.id}" type="number">
             </div>
 
 
@@ -17,7 +17,7 @@
                 <label class="form-label" for="name">Name</label>
                 <div class="input-group has-validation">
 
-                    <input class="form-control" id="name" name="name" placeholder="${customer.name}" required="" type="text">
+                    <input class="form-control" id="name" name="name" value="${customer.name}" placeholder="${customer.name}" required="" type="text">
                     <div class="invalid-feedback">
                         Your name is required.
                     </div>
@@ -26,14 +26,14 @@
 
             <div class="col-3">
                 <label class="form-label" for="email">Email </label>
-                <input class="form-control" id="email" name="email" placeholder="${customer.email}"  type="email">
+                <input class="form-control" id="email" name="email" value="${customer.email}" placeholder="${customer.email}"  type="email">
             </div>
 
             <hr class="my-4">
 
 
             <button class="w-100 btn btn-primary btn-lg" type="submit"
-                    <c:if test="${entityName.equal('Update')}"> onclick="makePUTrequest('${pageContext.request.contextPath}/customers}')"</c:if>>
+                    <c:if test="${methodName eq 'Update'}"> name="update_data" resource="${pageContext.request.contextPath}/customers" </c:if>>
                 ${methodName} customer
             </button>
         </div>

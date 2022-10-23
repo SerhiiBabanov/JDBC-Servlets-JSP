@@ -1,7 +1,6 @@
 package ua.goit.hw6.model.dto;
 
-import java.time.Instant;
-import java.time.ZoneId;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class ProjectDto {
@@ -9,19 +8,19 @@ public class ProjectDto {
     private String name;
     private String git_url;
     private Integer cost;
-    private Long date;
+    private LocalDate date;
 
     public ProjectDto() {
     }
 
-    public ProjectDto(String name, String git_url, Integer cost, Long date) {
+    public ProjectDto(String name, String git_url, Integer cost, LocalDate date) {
         this.name = name;
         this.git_url = git_url;
         this.cost = cost;
         this.date = date;
     }
 
-    public ProjectDto(Long id, String name, String git_url, Integer cost, Long date) {
+    public ProjectDto(Long id, String name, String git_url, Integer cost, LocalDate date) {
         this.id = id;
         this.name = name;
         this.git_url = git_url;
@@ -61,11 +60,11 @@ public class ProjectDto {
         this.cost = cost;
     }
 
-    public Long getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Long date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -89,7 +88,7 @@ public class ProjectDto {
                 ", name='" + name + '\'' +
                 ", git_url='" + git_url + '\'' +
                 ", cost=" + cost +
-                ", date=" + Instant.ofEpochMilli(date).atZone(ZoneId.systemDefault()).toLocalDate() +
+                ", date=" + date +
                 '}';
     }
 }

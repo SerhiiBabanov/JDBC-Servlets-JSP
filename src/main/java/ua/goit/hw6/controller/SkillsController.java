@@ -2,6 +2,7 @@ package ua.goit.hw6.controller;
 
 import ua.goit.hw6.config.DatabaseManagerConnector;
 import ua.goit.hw6.config.PropertiesConfig;
+import ua.goit.hw6.model.SkillLevel;
 import ua.goit.hw6.model.dto.SkillDto;
 import ua.goit.hw6.repository.SkillRepository;
 import ua.goit.hw6.service.SkillService;
@@ -60,5 +61,28 @@ public class SkillsController extends HttpServlet {
                     resp.encodeRedirectURL(req.getContextPath() + "/skills");
             resp.sendRedirect(redirect);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        SkillDto skillDto = new SkillDto();
+        skillDto.setLanguage(req.getParameter("language"));
+        skillDto.setLevel(SkillLevel.valueOf(req.getParameter("level")));
+        skillService.create(skillDto);
+        String redirect =
+                resp.encodeRedirectURL(req.getContextPath() + "/skills");
+        resp.sendRedirect(redirect);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        SkillDto skillDto = new SkillDto();
+        skillDto.setId(Long.valueOf(req.getParameter("id")));
+        skillDto.setLanguage(req.getParameter("language"));
+        skillDto.setLevel(SkillLevel.valueOf(req.getParameter("level")));
+        skillService.update(skillDto);
+        String redirect =
+                resp.encodeRedirectURL(req.getContextPath() + "/skills");
+        resp.sendRedirect(redirect);
     }
 }

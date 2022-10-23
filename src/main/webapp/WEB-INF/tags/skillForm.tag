@@ -42,7 +42,11 @@
                     <c:if test="${methodName eq 'Update'}"> name="update_data" resource="${pageContext.request.contextPath}/skills" </c:if>>
                 ${methodName} skill
             </button>
+            <hr class="my-4">
+            <a class="w-100 btn btn-primary btn-lg"
+               href="${pageContext.request.contextPath}/skills">Go to skills page</a>
         </div>
     </form>
+
 </div>
 

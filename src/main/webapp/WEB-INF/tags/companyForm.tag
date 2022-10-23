@@ -30,6 +30,9 @@
                     <c:if test="${methodName eq 'Update'}"> name="update_data" resource="${pageContext.request.contextPath}/companies" </c:if>>
                 ${methodName} company
             </button>
+            <hr class="my-4">
+            <a class="w-100 btn btn-primary btn-lg"
+               href="${pageContext.request.contextPath}/companies">Go to companies page</a>
         </div>
     </form>
 </div>

@@ -36,6 +36,9 @@
                     <c:if test="${methodName eq 'Update'}"> name="update_data" resource="${pageContext.request.contextPath}/customers" </c:if>>
                 ${methodName} customer
             </button>
+            <hr class="my-4">
+            <a class="w-100 btn btn-primary btn-lg"
+               href="${pageContext.request.contextPath}/customers">Go to customers page</a>
         </div>
     </form>
 </div>

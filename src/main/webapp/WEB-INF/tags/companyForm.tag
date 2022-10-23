@@ -9,7 +9,7 @@
 
             <div class="col-3">
                 <label class="form-label" for="id">id</label>
-                <input class="form-control" disabled id="id" name="id" placeholder="${company.id}" type="number">
+                <input class="form-control" disabled id="id" name="id" value="${company.id}"  type="number">
             </div>
 
 
@@ -27,7 +27,7 @@
 
 
             <button class="w-100 btn btn-primary btn-lg" type="submit"
-                    <c:if test="${entityName.equal('Update')}"> onclick="makePUTrequest('${pageContext.request.contextPath}/companies}')"</c:if>>
+                    <c:if test="${methodName eq 'Update'}"> name="update_data" resource="${pageContext.request.contextPath}/companies" </c:if>>
                 ${methodName} company
             </button>
         </div>

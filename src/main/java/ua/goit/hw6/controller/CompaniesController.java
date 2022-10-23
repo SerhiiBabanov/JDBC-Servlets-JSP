@@ -1,5 +1,6 @@
 package ua.goit.hw6.controller;
 
+import com.google.gson.Gson;
 import ua.goit.hw6.config.DatabaseManagerConnector;
 import ua.goit.hw6.config.PropertiesConfig;
 import ua.goit.hw6.model.dto.CompanyDto;
@@ -76,10 +77,8 @@ public class CompaniesController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CompanyDto companyDto = new CompanyDto();
-        companyDto.setId(Long.valueOf(req.getParameter("id")));
-        companyDto.setName(req.getParameter("name"));
-        companyDto.setCountry(req.getParameter("country"));
+        Gson gson = new Gson();
+        CompanyDto companyDto = gson.fromJson(req.getReader(), CompanyDto.class);
         companyService.update(companyDto);
     }
 }

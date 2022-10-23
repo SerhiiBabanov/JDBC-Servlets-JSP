@@ -1,5 +1,6 @@
 package ua.goit.hw6.controller;
 
+import com.google.gson.Gson;
 import ua.goit.hw6.config.DatabaseManagerConnector;
 import ua.goit.hw6.config.PropertiesConfig;
 import ua.goit.hw6.model.dto.DeveloperDto;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 @WebServlet("/developers")
 public class DevelopersController extends HttpServlet {
@@ -87,14 +89,8 @@ public class DevelopersController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DeveloperDto developerDto = new DeveloperDto();
-        developerDto.setId(Long.valueOf(req.getParameter("id")));
-        developerDto.setName(req.getParameter("name"));
-        developerDto.setUsername(req.getParameter("username"));
-        developerDto.setSalary(Integer.valueOf(req.getParameter("salary")));
+        String requestData = req.getReader().lines().collect(Collectors.joining());
+        DeveloperDto developerDto = new Gson().fromJson(requestData, DeveloperDto.class);
         developerService.update(developerDto);
-        String redirect =
-                resp.encodeRedirectURL(req.getContextPath() + "/developers");
-        resp.sendRedirect(redirect);
     }
 }

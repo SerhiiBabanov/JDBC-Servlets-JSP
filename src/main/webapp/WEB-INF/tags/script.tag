@@ -41,11 +41,11 @@
         })
         var xhr = new XMLHttpRequest();
         xhr.open( "PUT", url );
-        xhr.setRequestHeader( "Content-Type", "application/json" );
+        xhr.setRequestHeader( "Content-Type", "application/json; charset=utf-8" );
         xhr.onload = () => {
             if ( xhr.status === 200 ) {
-                // reload() uses cache, reload( true ) force no-cache. I reload the page to make "redirects normal effect" of HTML form when submit. You can manipulate DOM instead.
-                location.reload( true );
+                var button = document.querySelectorAll("[name=update_data]");
+                button[0].innerHTML = "Updated!"
             } else {
                 console.log( xhr.status, xhr.responseText );
             }
@@ -53,7 +53,6 @@
         xhr.send( JSON.stringify(body) );
     };
     document.querySelectorAll( "[name=update_data]" ).forEach( element => {
-        var button = element;
-        button.addEventListener( "click", putMethod);
+        element.addEventListener( "click", putMethod);
     })
 </script>
